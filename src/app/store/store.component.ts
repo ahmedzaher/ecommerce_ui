@@ -16,8 +16,21 @@ export class StoreComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      this.storeService.getStoreItems()
-        .subscribe( storeItems => this.storeItems = storeItems);
+      this.loadStoreItems();
+  }
+
+  loadStoreItems(filter?: {}) {
+    this.storeService.getStoreItems(filter)
+      .subscribe( storeItems => this.storeItems = storeItems);
+  }
+
+  changePage(e) {
+    this.loadStoreItems(
+      {
+        offset: e.pageIndex * e.pageSize, 
+        pageSize: e.pageSize
+      }
+    );
   }
 
 }

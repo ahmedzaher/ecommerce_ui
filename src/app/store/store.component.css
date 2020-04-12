@@ -1,0 +1,19 @@
+.store-container {
+  padding: 25px;
+}
+.item-wrapper {
+
+}
+.item-card {
+  display: inline-block;
+  width: 28%;
+  margin-right: 1%;
+  margin-bottom: 1%;
+   
+     
+}
+  
+.item-header-image {
+    background-size: cover;
+    height: 40%;
+}

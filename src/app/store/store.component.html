@@ -1,7 +1,32 @@
-<div>
-    <h2>Store</h2>
-    <div *ngFor="let item of storeItems">
-        <h3>{{item.name}}</h3>
-        <p>{{item.price}}</p>
-    </div>
+<div class="store-container">
+    <mat-card>
+        <mat-card *ngFor="let item of storeItems" class="item-card">
+            <mat-card-header>
+                <div mat-card-avatar class="item-header-image" style="background-image: url('assets/imgs/av1.png')">
+                </div>
+                <mat-card-title>{{item.name}}</mat-card-title>
+                <mat-card-subtitle>{{item.category}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="/assets/imgs/img2.png" alt="Photo of a {{item.name}}">
+            <mat-card-content>
+                <p>
+                    <mat-chip-list>
+                        <mat-chip color="warn" selected>{{item.price | currency}}</mat-chip>
+                    </mat-chip-list>
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout.
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button >
+                    <mat-icon class="example-icon" aria-hidden="false" aria-label="icon">shopping_cart</mat-icon>
+                    ADD TO CART
+                </button>
+                <button mat-button >
+                    <mat-icon class="example-icon" aria-hidden="false" aria-label="icon">favorite</mat-icon>
+                    ADD TO FAVORITES</button>
+            </mat-card-actions>
+        </mat-card>
+        <app-paginator [length]="100" (pageEvent)="changePage($event)"></app-paginator>
+    </mat-card>
 </div>

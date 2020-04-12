@@ -16,8 +16,8 @@ export class StoreService {
     private messagesService: MessagesService
   ) { }
 
-  getStoreItems(): Observable<StoreItem[]> {
-      return this.httpClient.get<StoreItem[]>(API_URLS['store'])
+  getStoreItems(filter): Observable<StoreItem[]> {
+      return this.httpClient.get<StoreItem[]>(API_URLS['store'], {params: filter})
         .pipe(
           tap( () => this.log(`Store items loaded`)),
           catchError(this.handleError<StoreItem[]>('getStoreItems'))
