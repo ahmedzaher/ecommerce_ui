@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { API_URLS } from './api-urls';
 import { tap, catchError } from 'rxjs/operators';
+import { AuthenticationData } from './model/AuthenticationData';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,11 @@ export class AuthenticationService {
     private httpClient: HttpClient
   ) { }
 
-  authenticate(credentials: {}): Observable<{}> {
-    return this.httpClient.post<{}>(API_URLS['authenticate'], credentials, this.httpOptions)
+  authenticate(authData: AuthenticationData): Observable<{}> {
+    return this.httpClient.post<{}>(API_URLS['authenticate'], authData, this.httpOptions)
     .pipe(
       tap((result) => this.proceedAuthentication(result)),
-      catchError(this.handleError<{}>(`addHero`))
+      catchError(this.handleError<{}>(`authenticate`))
     );
   }
 

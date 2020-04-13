@@ -16,6 +16,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { FormsModule } from '@angular/forms';
+import { GlobalContainerComponent } from './global-container/global-container.component';
 
 
 
@@ -25,7 +31,9 @@ import {MatChipsModule} from '@angular/material/chips';
     AppComponent,
     StoreComponent,
     NavbarComponent,
-    PaginatorComponent    
+    PaginatorComponent,
+    AuthenticationComponent,
+    GlobalContainerComponent    
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,12 @@ import {MatChipsModule} from '@angular/material/chips';
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule
+
     
 ],
   providers: [],

@@ -2,7 +2,18 @@
     <mat-toolbar-row>
       <span>E Commerce</span>
       <span class="example-spacer"></span>
-      <mat-icon class="example-icon" aria-hidden="false" aria-label="heart icon">favorite</mat-icon>
-      <mat-icon class="example-icon" aria-hidden="false" aria-label="shopping cart icon">shopping_cart</mat-icon>
+      <div *ngIf="isAuthenticated()">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="heart icon">favorite</mat-icon>
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="shopping cart icon">shopping_cart</mat-icon>   
+        <button mat-button (click)="onClickLogout()">
+          LOGOUT
+        </button>
+      </div>
+
+      <button mat-button (click)="onClickLogin()" *ngIf="!isAuthenticated()">
+        LOGIN
+      </button>
+      
+
     </mat-toolbar-row>
   </mat-toolbar>
