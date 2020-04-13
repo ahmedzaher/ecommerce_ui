@@ -27,6 +27,6 @@
                     ADD TO FAVORITES</button>
             </mat-card-actions>
         </mat-card>
-        <app-paginator [length]="100" (pageEvent)="changePage($event)"></app-paginator>
+        <app-paginator [pageSize]="pageSize" [length]="100" (pageEvent)="changePage($event)"></app-paginator>
     </mat-card>
 </div>

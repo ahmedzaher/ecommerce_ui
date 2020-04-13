@@ -9,6 +9,7 @@ import { StoreItem } from '../model/StoreItem';
 })
 export class StoreComponent implements OnInit {
 
+  pageSize: number = 5;
   storeItems: StoreItem[] = [];
 
   constructor(
@@ -16,7 +17,7 @@ export class StoreComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      this.loadStoreItems();
+      this.loadStoreItems({offset: 0, pageSize: this.pageSize});
   }
 
   loadStoreItems(filter?: {}) {

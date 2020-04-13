@@ -9,9 +9,8 @@ import { EventEmitter } from '@angular/core';
 })
 export class PaginatorComponent implements OnInit {
 
-    // MatPaginator Inputs
     @Input() length;
-    pageSize = 10;
+    @Input() pageSize = 10;
     pageSizeOptions: number[] = [5, 10, 25, 100];
 
     @Output() pageEvent: EventEmitter<PageEvent> = new EventEmitter()
