@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../store.service';
 import { StoreItem } from '../model/StoreItem';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-store',
@@ -13,7 +14,8 @@ export class StoreComponent implements OnInit {
   storeItems: StoreItem[] = [];
 
   constructor(
-    private storeService: StoreService
+    private storeService: StoreService,
+    private cartService: CartService,
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +25,10 @@ export class StoreComponent implements OnInit {
   loadStoreItems(filter?: {}) {
     this.storeService.getStoreItems(filter)
       .subscribe( storeItems => this.storeItems = storeItems);
+  }
+
+  addToCart(itemId: number) {
+    this.cartService.addToCart(itemId).subscribe();
   }
 
   changePage(e) {

@@ -23,6 +23,9 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalContainerComponent } from './global-container/global-container.component';
 import { AuthenticationInterceptor } from './authentication.interceptor';
+import { CartComponent } from './cart/cart.component';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -34,7 +37,8 @@ import { AuthenticationInterceptor } from './authentication.interceptor';
     NavbarComponent,
     PaginatorComponent,
     AuthenticationComponent,
-    GlobalContainerComponent    
+    GlobalContainerComponent,
+    CartComponent    
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import { AuthenticationInterceptor } from './authentication.interceptor';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule,
+    MatDividerModule
 
     
 ],
