@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { API_URLS } from './api-urls';
 import { tap, catchError, shareReplay } from 'rxjs/operators';
 import { AuthenticationData } from './model/AuthenticationData';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthenticationService {
   };
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router,
   ) { }
 
   authenticate(authData: AuthenticationData): Observable<{}> {
@@ -33,6 +35,7 @@ export class AuthenticationService {
   
   logout() {
     localStorage.removeItem("token");
+    this.router.navigate(['/store']);
   }
 
   private setSession(authenticationResult: any) {
