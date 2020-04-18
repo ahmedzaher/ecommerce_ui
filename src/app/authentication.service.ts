@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { API_URLS } from './api-urls';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, shareReplay } from 'rxjs/operators';
 import { AuthenticationData } from './model/AuthenticationData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  
+
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -20,39 +20,45 @@ export class AuthenticationService {
 
   authenticate(authData: AuthenticationData): Observable<{}> {
     return this.httpClient.post<{}>(API_URLS['authenticate'], authData, this.httpOptions)
-    .pipe(
-      tap((result) => this.proceedAuthentication(result)),
-      catchError(this.handleError<{}>(`authenticate`))
-    );
-  }
-
-  private proceedAuthentication(authenticationResult) {
-     console.log(`Authenticated ${authenticationResult.jwttoken}`);
-    localStorage.setItem("token", authenticationResult.jwttoken);
+      .pipe(
+        tap((result) => this.setSession(result)),
+        catchError(this.handleError<{}>(`authenticate`))
+      );
   }
 
   isAuthenticated(): boolean {
-    return localStorage.getItem("token") ? true : false;
+    const token = localStorage.getItem("token");
+    return token && !this.isTokenExpired(token) ? true : false;
   }
-
+  
   logout() {
     localStorage.removeItem("token");
   }
 
-    /**
- * Handle Http operation that failed.
- * Let the app continue.
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
-private handleError<T>(operation = 'operation', result?: T) {
-  return (error: any): Observable<T> => {
+  private setSession(authenticationResult: any) {
+    localStorage.setItem("token", authenticationResult.jwttoken);
+  }
 
-    // TODO: send the error to remote logging infrastructure
-    console.error(error); // log to console instead
+  private isTokenExpired(token: string) {
+    let expirationDate = new Date ( +JSON.parse(atob(token.split('.')[1])).exp * 1000 );
+    return new Date() > expirationDate;
 
-    // Let the app keep running by returning an empty result.
-    return of(result as T);
-  };
-}
+  }
+
+  /**
+* Handle Http operation that failed.
+* Let the app continue.
+* @param operation - name of the operation that failed
+* @param result - optional value to return as the observable result
+*/
+  private handleError<T>(operation = 'operation') {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      const errorCode: any = error.status || 500
+      return of(errorCode);
+    };
+  }
 }

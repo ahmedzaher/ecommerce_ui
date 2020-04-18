@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
@@ -15,13 +15,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Output() openAuthentication: EventEmitter<any> = new EventEmitter();
-
-  onClickLogin() {
-    this.openAuthentication.emit();
-  }
   onClickLogout() {
-    localStorage.removeItem("token");
+    this.authenticationService.logout();
   }
 
   isAuthenticated(): boolean{
