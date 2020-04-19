@@ -26,7 +26,7 @@ import { AuthenticationInterceptor } from './authentication.interceptor';
 import { CartComponent } from './cart/cart.component';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -38,7 +38,7 @@ import { MatDividerModule } from '@angular/material/divider';
     PaginatorComponent,
     AuthenticationComponent,
     GlobalContainerComponent,
-    CartComponent    
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -58,9 +58,8 @@ import { MatDividerModule } from '@angular/material/divider';
     ReactiveFormsModule,
     MatInputModule,
     MatListModule,
-    MatDividerModule
-
-    
+    MatDividerModule,
+    MatSnackBarModule
 ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}

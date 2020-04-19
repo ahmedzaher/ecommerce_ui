@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { StoreService } from '../store.service';
 import { StoreItem } from '../model/StoreItem';
 import { CartService } from '../cart.service';
+import { AuthenticationService } from '../authentication.service';
+import { CommunicatationService } from '../communicatation.service';
 
 @Component({
   selector: 'app-store',
@@ -13,7 +15,10 @@ export class StoreComponent implements OnInit {
   pageSize: number = 5;
   storeItems: StoreItem[] = [];
 
+  @Output() requireAuthentication = new EventEmitter();
   constructor(
+    private communicatationService: CommunicatationService,
+    private authenticationService: AuthenticationService,
     private storeService: StoreService,
     private cartService: CartService,
   ) { }
@@ -28,6 +33,10 @@ export class StoreComponent implements OnInit {
   }
 
   addToCart(itemId: number) {
+    if(!this.isAuthenticated()) {
+      this.communicatationService.requireAuthenticationEmit();
+      return;
+    }
     this.cartService.addToCart(itemId).subscribe();
   }
 
@@ -38,6 +47,10 @@ export class StoreComponent implements OnInit {
         pageSize: e.pageSize
       }
     );
+  }
+
+  isAuthenticated(): boolean {
+    return this.authenticationService.isAuthenticated();
   }
 
 }

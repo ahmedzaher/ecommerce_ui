@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AuthenticationComponent } from '../authentication/authentication.component';
+import { Component, OnInit, EventEmitter, ElementRef } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
+import { CommunicatationService } from '../communicatation.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-global-container',
@@ -11,17 +12,23 @@ import { AuthenticationService } from '../authentication.service';
 export class GlobalContainerComponent implements OnInit {
 
   constructor(
-    public dialog: MatDialog,
-    public authenticationService: AuthenticationService
+    private router: Router,
+    private communicatationService: CommunicatationService,
+    public authenticationService: AuthenticationService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-  }
+    this.handleAuthenticationRequired();
 
-  openAuthentication(): void {
-    this.dialog.open(AuthenticationComponent, {
-      width: '250px'
-    });
-    
+  }
+  handleAuthenticationRequired() {
+    this.communicatationService.onRequireAuthentication().subscribe(
+      () => {
+        this.snackBar.open('Please login', 'Login')
+          .onAction().subscribe(() => {
+            this.router.navigate(['authenticate'])
+          })
+      })
   }
 }
