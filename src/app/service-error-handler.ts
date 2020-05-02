@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Observable, of } from 'rxjs';
-import { MessagesService } from './messages.service';
+import { AlertsService } from './alerts.service';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +8,7 @@ import { MessagesService } from './messages.service';
 export class ServiceErrorHandler {
 
     constructor(
-        private messagesService: MessagesService
+        private alertsService: AlertsService
     ) { }
 
     /**
@@ -24,7 +24,6 @@ export class ServiceErrorHandler {
             console.error(error); // log to console instead
 
             // TODO: better job of transforming error for user consumption
-            this.messagesService.add(`${operation} failed: ${error.message}`);
 
             // Let the app keep running by returning an empty result.
             return of(result as T);

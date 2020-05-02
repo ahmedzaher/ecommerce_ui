@@ -27,6 +27,7 @@ import { CartComponent } from './cart/cart.component';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AlertsComponent } from './global-container/alerts/alerts.component';
 
 
 
@@ -38,7 +39,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PaginatorComponent,
     AuthenticationComponent,
     GlobalContainerComponent,
-    CartComponent
+    CartComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,

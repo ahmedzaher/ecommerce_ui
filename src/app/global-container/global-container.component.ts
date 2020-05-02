@@ -20,9 +20,9 @@ export class GlobalContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleAuthenticationRequired();
-
   }
-  handleAuthenticationRequired() {
+
+  private handleAuthenticationRequired() {
     this.communicatationService.onRequireAuthentication().subscribe(
       () => {
         this.snackBar.open('Please login', 'Login')

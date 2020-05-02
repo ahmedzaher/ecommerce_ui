@@ -1,0 +1,22 @@
+.alerts {
+    width: 30%;
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+    z-index: 99;
+    padding: 3px;
+}
+
+.alert {
+    color: white;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-fail {
+    background-color: #dc3545;
+}

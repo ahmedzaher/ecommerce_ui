@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { StoreItem } from './model/StoreItem';
-import { MessagesService } from './messages.service';
+import { AlertsService } from './alerts.service';
 import { API_URLS } from './api-urls';
 import { ServiceErrorHandler } from './service-error-handler';
 
@@ -14,14 +14,13 @@ export class StoreService {
 
   constructor(
     private httpClient: HttpClient,
-    private messagesService: MessagesService,
+    private alertsService: AlertsService,
     private serviceErrorHandler: ServiceErrorHandler
   ) { }
 
   getStoreItems(filter): Observable<StoreItem[]> {
       return this.httpClient.get<StoreItem[]>(API_URLS['store'], {params: filter})
         .pipe(
-          tap( () => this.messagesService.add(`Store items loaded`)),
           catchError(this.serviceErrorHandler.handleError<StoreItem[]>('getStoreItems'))
         );
   }

@@ -1,0 +1,8 @@
+<div class="alerts" di>
+    <mat-card *ngFor="let alert of alertsService.getAlerts(); let i = index"
+        (click)="alertsService.removeById(alert.id)"
+        class="alert alert-success"
+        >
+        {{alert.message}}
+    </mat-card>
+</div>

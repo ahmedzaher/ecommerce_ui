@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { StoreItem } from './model/StoreItem';
-import { MessagesService } from './messages.service';
+import { AlertsService } from './alerts.service';
 import { API_URLS } from './api-urls';
 import { ServiceErrorHandler } from './service-error-handler';
 
@@ -14,7 +14,7 @@ export class CartService {
 
   constructor(
     private httpClient: HttpClient,
-    private messagesService: MessagesService,
+    private alertsService: AlertsService,
     private serviceErrorHandler: ServiceErrorHandler
   ) { }
 
@@ -25,7 +25,6 @@ export class CartService {
   getUserCart(): Observable<any> {
     return this.httpClient.get<any>(API_URLS['get-user-cart'])
       .pipe(
-        tap( () => this.messagesService.add(`User cart loaded`)),
         catchError(this.serviceErrorHandler.handleError<any>('getUserCart'))
       );
   }
@@ -34,7 +33,7 @@ export class CartService {
       return this.httpClient.post<any>(API_URLS['add-cart-item'],
         {itemId}, this.httpOptions)
         .pipe(
-          tap( () => this.messagesService.add(`Cart item added`)),
+          tap( () => this.alertsService.addSuccess(`Item add to cart`)),
           catchError(this.serviceErrorHandler.handleError<any>('addToCart'))
         );
   }
