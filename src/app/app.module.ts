@@ -28,6 +28,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlertsComponent } from './global-container/alerts/alerts.component';
+import { LoadingComponent } from './global-container/loading/loading.component';
 
 
 
@@ -40,7 +41,8 @@ import { AlertsComponent } from './global-container/alerts/alerts.component';
     AuthenticationComponent,
     GlobalContainerComponent,
     CartComponent,
-    AlertsComponent
+    AlertsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

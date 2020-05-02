@@ -5,6 +5,7 @@ import { CartService } from '../cart.service';
 import { AuthenticationService } from '../authentication.service';
 import { CommunicatationService } from '../communicatation.service';
 import { AlertsService } from '../alerts.service';
+import { LoadingService } from '../loading.service';
 
 @Component({
   selector: 'app-store',
@@ -20,7 +21,8 @@ export class StoreComponent implements OnInit {
   constructor(
     private communicatationService: CommunicatationService,
     private authenticationService: AuthenticationService,
-    private alertsService: AlertsService,
+    private loadingService: LoadingService,
+    private alertsService: AlertsService, 
     private storeService: StoreService,
     private cartService: CartService,
   ) { }
@@ -30,8 +32,10 @@ export class StoreComponent implements OnInit {
   }
 
   loadStoreItems(filter?: {}) {
+    this.loadingService.showLoading();
     this.storeService.getStoreItems(filter)
       .subscribe( storeItems => {
+        this.loadingService.hideLoading();
         if(storeItems) {
           this.storeItems = storeItems;
         } else {
@@ -46,8 +50,10 @@ export class StoreComponent implements OnInit {
       this.communicatationService.requireAuthenticationEmit();
       return;
     }
+    this.loadingService.showLoading();
     this.cartService.addToCart(itemId).subscribe(
       result => {
+        this.loadingService.hideLoading();
         if(result) {
           this.alertsService.addSuccess(`${itemName} add to cart`);
         } else {
