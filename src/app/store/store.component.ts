@@ -4,6 +4,7 @@ import { StoreItem } from '../model/StoreItem';
 import { CartService } from '../cart.service';
 import { AuthenticationService } from '../authentication.service';
 import { CommunicatationService } from '../communicatation.service';
+import { AlertsService } from '../alerts.service';
 
 @Component({
   selector: 'app-store',
@@ -19,6 +20,7 @@ export class StoreComponent implements OnInit {
   constructor(
     private communicatationService: CommunicatationService,
     private authenticationService: AuthenticationService,
+    private alertsService: AlertsService,
     private storeService: StoreService,
     private cartService: CartService,
   ) { }
@@ -29,15 +31,30 @@ export class StoreComponent implements OnInit {
 
   loadStoreItems(filter?: {}) {
     this.storeService.getStoreItems(filter)
-      .subscribe( storeItems => this.storeItems = storeItems);
+      .subscribe( storeItems => {
+        if(storeItems) {
+          this.storeItems = storeItems;
+        } else {
+          this.alertsService.addFail("Failed to load store");
+        }
+        
+      });
   }
 
-  addToCart(itemId: number) {
+  addToCart(itemId: number, itemName: string) {
     if(!this.isAuthenticated()) {
       this.communicatationService.requireAuthenticationEmit();
       return;
     }
-    this.cartService.addToCart(itemId).subscribe();
+    this.cartService.addToCart(itemId).subscribe(
+      result => {
+        if(result) {
+          this.alertsService.addSuccess(`${itemName} add to cart`);
+        } else {
+          this.alertsService.addFail("Failed to load store");
+        }
+      }
+    );
   }
 
   changePage(e) {

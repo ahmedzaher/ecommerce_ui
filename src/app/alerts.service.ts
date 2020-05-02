@@ -18,7 +18,7 @@ const ALERT_LIFE_TIME = 2500;
 })
 export class AlertsService {
 
-  alerts: Alert[] = [];
+  private alerts: Alert[] = [];
   
   
   constructor() { }

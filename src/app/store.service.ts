@@ -14,7 +14,6 @@ export class StoreService {
 
   constructor(
     private httpClient: HttpClient,
-    private alertsService: AlertsService,
     private serviceErrorHandler: ServiceErrorHandler
   ) { }
 

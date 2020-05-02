@@ -33,7 +33,7 @@ export class CartService {
       return this.httpClient.post<any>(API_URLS['add-cart-item'],
         {itemId}, this.httpOptions)
         .pipe(
-          tap( () => this.alertsService.addSuccess(`Item add to cart`)),
+          tap( () => console.log(`Item add to cart`)),
           catchError(this.serviceErrorHandler.handleError<any>('addToCart'))
         );
   }

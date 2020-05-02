@@ -1,7 +1,10 @@
 <div class="alerts" di>
     <mat-card *ngFor="let alert of alertsService.getAlerts(); let i = index"
-        (click)="alertsService.removeById(alert.id)"
-        class="alert alert-success"
+        (click)="alertsService.removeById(alert.id)" class="alert"
+        [ngClass]="{
+            'alert-fail': alert.type==AlertType.FAIL,
+            'alert-success': alert.type==AlertType.SUCCESS
+        }"
         >
         {{alert.message}}
     </mat-card>
