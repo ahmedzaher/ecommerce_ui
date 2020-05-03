@@ -14,7 +14,6 @@ export class CartService {
 
   constructor(
     private httpClient: HttpClient,
-    private alertsService: AlertsService,
     private serviceErrorHandler: ServiceErrorHandler
   ) { }
 
@@ -25,7 +24,7 @@ export class CartService {
   getUserCart(): Observable<any> {
     return this.httpClient.get<any>(API_URLS['get-user-cart'])
       .pipe(
-        catchError(this.serviceErrorHandler.handleError<any>('getUserCart'))
+        catchError(this.serviceErrorHandler.handleError<any>('getUserCart', {}))
       );
   }
 
@@ -34,7 +33,7 @@ export class CartService {
         {itemId}, this.httpOptions)
         .pipe(
           tap( () => console.log(`Item add to cart`)),
-          catchError(this.serviceErrorHandler.handleError<any>('addToCart'))
+          catchError(this.serviceErrorHandler.handleError<any>('addToCart', {}))
         );
   }
 }

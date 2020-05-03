@@ -9,7 +9,7 @@ import { AlertsService } from '../alerts.service';
 })
 export class CartComponent implements OnInit {
 
-  items: any = [];
+  items: any;
   cartId: number;
   constructor(
     private cartService: CartService,
@@ -23,8 +23,7 @@ export class CartComponent implements OnInit {
   private loadCartItems() {
     this.cartService.getUserCart()
       .subscribe(result => {
-        console.log(result);
-        if(result) {
+        if(result.id) {
           this.items = result.items;
           this.cartId = result.id;
         } else {
