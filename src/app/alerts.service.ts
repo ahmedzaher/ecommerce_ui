@@ -37,12 +37,10 @@ export class AlertsService {
 
   addSuccess(message: string) {
     this.add({message, type: AlertType.SUCCESS});
-    console.debug(this.alerts);
   }
 
   addFail(message: string) {
     this.add({message, type: AlertType.FAIL});
-    console.debug(this.alerts);
   }
 
   removeById(alertId: number) {

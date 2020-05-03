@@ -24,7 +24,7 @@ export class CartService {
   getUserCart(): Observable<any> {
     return this.httpClient.get<any>(API_URLS['get-user-cart'])
       .pipe(
-        catchError(this.serviceErrorHandler.handleError<any>('getUserCart', {}))
+        catchError(this.serviceErrorHandler.handleError<any>('getUserCart'))
       );
   }
 
@@ -33,7 +33,15 @@ export class CartService {
         {itemId}, this.httpOptions)
         .pipe(
           tap( () => console.log(`Item add to cart`)),
-          catchError(this.serviceErrorHandler.handleError<any>('addToCart', {}))
+          catchError(this.serviceErrorHandler.handleError<any>('addToCart'))
         );
   }
+
+  removeFromCart(cartId:number, itemId: number): Observable<any> {
+    return this.httpClient.delete<any>(`${API_URLS['delete-cart-item']}/${cartId}/item/${itemId}`)
+      .pipe(
+        tap( () => console.log(`Item deleted from cart`)),
+        catchError(this.serviceErrorHandler.handleError<any>('removeFromCart'))
+      );
+}
 }

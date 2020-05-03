@@ -8,8 +8,8 @@
         <mat-list-item *ngFor="let item of items">
             {{item.name}}
 
-            <span class="delete-icon">
-                <mat-icon>delete</mat-icon>
+            <span class="delete-icon" (click)="deleteCartItem(item.itemId)" >
+                <mat-icon color="warn">delete</mat-icon>
             </span>
         </mat-list-item>
     </mat-list>

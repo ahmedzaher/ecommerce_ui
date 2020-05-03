@@ -4,4 +4,5 @@ export const API_URLS = {
     "authenticate": "http://localhost:8080/authenticate",
     "add-cart-item": "http://localhost:8080/cart/item",
     "get-user-cart": "http://localhost:8080/cart",
+    "delete-cart-item": "http://localhost:8080/cart",
 };

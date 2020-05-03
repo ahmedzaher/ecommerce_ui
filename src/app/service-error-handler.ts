@@ -26,7 +26,17 @@ export class ServiceErrorHandler {
             // TODO: better job of transforming error for user consumption
 
             // Let the app keep running by returning an empty result.
-            return of(result as T);
+            
+            if(result) {
+                return of(result as T);
+                
+            } else {
+                const errorResult = {
+                    error: error.status
+                 } 
+                return of(errorResult as any);
+            }
+            
         };
     }
 }

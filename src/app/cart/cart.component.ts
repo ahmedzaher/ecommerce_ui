@@ -9,7 +9,7 @@ import { AlertsService } from '../alerts.service';
 })
 export class CartComponent implements OnInit {
 
-  items: any;
+  items: any[];
   cartId: number;
   constructor(
     private cartService: CartService,
@@ -28,6 +28,18 @@ export class CartComponent implements OnInit {
           this.cartId = result.id;
         } else {
           this.alertService.addFail('Failed to load cart');
+        }
+      });
+  }
+
+  public deleteCartItem(itemId: number) {
+    this.cartService.removeFromCart(this.cartId, itemId)
+      .subscribe(result => {
+        if(result && result.error) {
+          this.alertService.addFail('Failed remove');
+        } else {
+          this.alertService.addSuccess('removed successully');
+          this.items = this.items.filter( item => item.itemId !== itemId);
         }
       });
   }
